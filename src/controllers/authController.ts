@@ -18,9 +18,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
     }
     sendError(res, 'Error server.', 500);
   }
-};
-
-// Perbarui login
+}
 export const login = async (req: Request, res: Response): Promise<void> => {
   const payload: LoginRequest = req.body;
   try {

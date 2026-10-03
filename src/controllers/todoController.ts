@@ -52,14 +52,12 @@ export const createTodo = async (req: Request, res: Response): Promise<void> => 
     }
 };
 
-// GET /api/todos/:id - Ambil satu todo berdasarkan ID
 export const getTodoById = async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;
     const userId = req.user.id;
     try {
         const todo = await TodoModel.getById(Number(id), userId);
 
-        // Jika undefined, berarti todo tidak ditemukan atau bukan milik user ini
         if (!todo) {
             sendError(res, 'Tugas tidak ditemukan!', 404);
             return;
@@ -75,7 +73,6 @@ export const getTodoById = async (req: Request, res: Response): Promise<void> =>
     }
 };
 
-// PUT /api/todos/:id - update todo (ubah task atau tandai selesai)
 export const updateTodo = async (req: Request, res: Response): Promise<void> => {
     const {id} = req.params;
     const payload: UpdateTodoRequest = req.body;
@@ -83,7 +80,6 @@ export const updateTodo = async (req: Request, res: Response): Promise<void> => 
     try {
         const affectedRows = await TodoModel.update(Number(id), payload.task, payload.is_completed, userId);
 
-        // jika affectedRows = 0, berarti todo tidak ditemukan atau bukan milik user ini
         if (affectedRows === 0) {
             sendError(res, 'Tugas tidak ditemukan!', 404);
             return;
@@ -95,14 +91,13 @@ export const updateTodo = async (req: Request, res: Response): Promise<void> => 
     }
 };
 
-// DELETE api/todos/:id - Hapus todo
+
 export const deleteTodo = async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;
     const userId = req.user.id;
     try {
         const affectedRows = await TodoModel.delete(Number(id), userId);
 
-        // Jika affectedRows = 0, berarti todo tidak ditemukan atau bukan milik user ini
         if (affectedRows === 0) {
             sendError(res, 'Tugas tidak ditemukan!', 404);
             return;

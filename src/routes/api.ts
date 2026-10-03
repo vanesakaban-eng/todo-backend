@@ -10,7 +10,6 @@ const router = Router();
 router.post('/auth/register', validateRegister, register);
 router.post('/auth/login', validateLogin, login);
 
-// TODO ROUTES (Protected)
 router.get('/todos', verifyToken, getTodos);
 router.post('/todos', verifyToken, validateTodo, createTodo);
 

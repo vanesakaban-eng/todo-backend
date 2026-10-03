@@ -32,7 +32,7 @@ app.use('/api', routes);
 
 // 404 Handler - dipanggil jika tidak ada route yang cocok
 app.use((req: Request, res: Response) => {
-  sendError(res, `Route \({req.method}\){req.url} tidak ditemukan!`, 404);
+  sendError(res, `Route (${req.method})${req.url} tidak ditemukan!`, 404);
 });
 
 // Global Error Handler - menangkap error yang tidak tertangani
